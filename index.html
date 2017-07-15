@@ -6,10 +6,12 @@ layout: root
 <header class="header-image">
     <div class="headline">
         <div class="container">
-            <h1>OverEngineered</h1>
-            <h2>If something's worth doing, it's worth doing stupidly</h2>
+          <div id='over'></div>
+          <div id='engineered'></div>
+          <h2>If something's worth doing, it's worth doing stupidly</h2>
         </div>
     </div>
+
 </header>
 
 <!-- Page Content -->
@@ -66,3 +68,47 @@ layout: root
     </div>
 
     <hr class="featurette-divider">
+
+<script>
+render('OVER')
+render('engineered')
+
+function render(svg) {
+  d3.json('/assets/' + svg + '.svg.json', function(data) {
+    svg = d3.select('#' + svg.toLowerCase())
+            .append('div')
+            .classed('svg-container', true)
+            .append('svg')
+            .attr('preserveAspectRatio', 'xMinYMin meet')
+            .attr('viewBox', '0 0 ' + (data.width + 1) + ' ' + (data.height + 1))
+            .classed('svg-content-responsive', true)
+            .append('g')
+    svg.selectAll('rect')
+       .data(data.data)
+       .enter()
+       .append('a')
+       .attr('xlink:href', '/')
+       .append('rect')
+       .attr('x', function(d) {
+         return d.x
+       })
+       .attr('y', function(d) {
+         return d.y
+       })
+       .attr('height', 1)
+       .attr('width', 1)
+       .classed('pixel', true)
+       .on('mouseover', handleMouseOver)
+       .on('mouseout', handleMouseOut)
+  })
+}
+
+ function handleMouseOver(d, i) {
+   if (! d3.select(this).classed('non-pixel')) {
+     d3.select(this).attr('opacity', 0.7)
+   }
+ }
+ function handleMouseOut(d, i) {
+   d3.select(this).attr('opacity', 1.0)
+ }
+</script>
