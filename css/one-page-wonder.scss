@@ -6,6 +6,8 @@
  * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
  */
 
+$grey: #777777;
+
 .header-image {
     display: block;
     width: 100%;
@@ -17,14 +19,16 @@
     -o-background-size: cover;
 }
 
-#logo {
+#over, #engineered {
   background: rgba(255,255,255,0.9);
+
 }
 
-.words:hover {
-  opacity: 0.5;
+.pixel {
+  fill: $grey;
+  stroke: darken($grey, 10%);
+  stroke-width: 0.1;
 }
-
 
 .headline {
     padding: 120px 0;
